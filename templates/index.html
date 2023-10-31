@@ -1,0 +1,20 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="button-container">
+        <button id="show-users" onclick="window.location.href='{{ url_for('dashboard') }}'">Mostrar todos los usuarios</button>
+    </div>
+    <div class="input-group">
+        <form action="{{ url_for('search_user') }}" method="get">
+        <input type="text" name="user" id="user" placeholder="Ingresa número de usuario" required>
+        <button type="submit" id="search-user">Buscar usuario</button>
+        </form>
+    </div>
+    <div class="button-container">
+        <button id="add-user" onclick="window.location.href='/register'">Agregar nuevo usuario</button>
+    </div>
+</div>
+{% endblock %}
+

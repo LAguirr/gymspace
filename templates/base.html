@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Flask App</title>
+</head>
+<body>
+<header>
+    <!-- Header components like logo, navigation, etc. -->
+    <a class="inicio" href="{{ url_for('index') }}" class="option-icon">
+                <i class="fas fa-edit">Inicio</i>
+            </a>
+    <h1>X-GYM Reynosa</h1>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <!-- Footer components -->
+</footer>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attach a click event listener to all delete buttons
+        document.querySelectorAll('.delete-btn').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent the default anchor action
+                const userUrl = this.dataset.url; // Get the URL from data attribute
+    
+                // Confirm delete action
+                if (confirm('Are you sure you want to delete this user?')) {
+                    // Send a DELETE request
+                    fetch(userUrl, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Handle the response data
+                        // Optionally, remove the user row from the table or refresh the page
+                        // this.closest('tr').remove(); // Uncomment to remove the row
+                        location.reload(); // Uncomment to refresh the page
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
+    </script>
+    
+</html>

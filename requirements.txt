@@ -1,1 +1,4 @@
 Flask==2.3.2
+flask_login
+flask_pymongo
+flask_sqlalchemy

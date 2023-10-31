@@ -1,0 +1,96 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- templates/register.html -->
+<form action="{{ url_for('register') }}" method="post" class='container-register' enctype="multipart/form-data" >
+    <h3>Nuevo Usuario</h3>
+    <label for="user_id">Numero de Usuario:</label>
+    <input type="text" id="user_id" name="user_id" required>
+    <br>
+    <label for="name">Nombre Completo:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="membership">Membresia:</label>
+    <select name="membership" id="membership" name=membership required>
+    <option value="">---</option>
+    <option value="Mensual">Mensual</option>
+    <option value="Semanal">Semanal</option>
+    <option value="Anual">Anual</option>
+    </select>
+    <br>
+    <label for="start_date">Fecha de Inicio:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ date.strftime('%Y-%m-%d') }}" required>
+    <br>
+    <label for="end_date">Fecha de vencimiento:</label>
+    <input type="date" id="end_date" name="end_date" value="" required>
+    <br>
+    <input type="file" name="photo" accept="image/*" id="photo-input" onchange="previewImage()">
+    <img id="photo-preview" src="#" alt="Photo preview" style="display: none;">
+    <br>
+    <input type="submit" value="Ingresar">
+</form>
+
+<script>
+    
+function addTimeToDate(startDate, daysToAdd, monthsToAdd, yearsToAdd) {
+    var date = new Date(startDate.valueOf());
+    date.setDate(date.getDate() + daysToAdd);
+    date.setMonth(date.getMonth() + monthsToAdd);
+    date.setFullYear(date.getFullYear() + yearsToAdd);
+    return date;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var membershipSelect = document.getElementById('membership');
+    var startDateInput = document.getElementById('start_date');
+    var endDateInput = document.getElementById('end_date');
+
+    membershipSelect.addEventListener('change', function() {
+        var now = new Date();
+        startDateInput.valueAsDate = now; // Set start date to now on change
+
+    // Determine the new end date based on the membership type
+        var newEndDate;
+        switch (this.value) {
+            case 'Mensual':
+                newEndDate = addTimeToDate(now, 0, 1, 0);
+                break;
+            case 'Semanal':
+                newEndDate = addTimeToDate(now, 7, 0, 0);
+                break;
+            case 'Anual':
+                newEndDate = addTimeToDate(now, 0, 0, 1);
+                break;
+            default:
+                endDateInput.value = ''; // Clear end date if no valid membership is selected
+                return; // Exit the function
+        }
+
+    // Set the end date input to the new end date
+        endDateInput.valueAsDate = newEndDate;
+    });
+    
+});
+function previewImage() {
+    var preview = document.getElementById('photo-preview');
+    var file = document.getElementById('photo-input').files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+        preview.style.width = '150px';
+        preview.style.height= '200px';
+    }
+
+
+    if (file) {
+        reader.readAsDataURL(file); // Read the image file as a data URL.
+    } else {
+        preview.src = "";
+        preview.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

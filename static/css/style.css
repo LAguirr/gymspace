@@ -1,0 +1,280 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* This ensures padding doesn't affect the total width or height of elements */
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(52, 52, 52);
+}
+
+h1 {
+  text-align: center;
+}
+
+.inicio {
+  font-family: Arial, sans-serif;
+  display: flex;
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: 800;
+}
+
+.inicio:hover {
+  box-shadow: 20px gray;
+}
+
+header {
+  width: 100%; /* Full width */
+  background: #000000; /* Example background color */
+  display: block;
+  color: white; /* Example text color */
+  padding: 15px 20px; /* Some padding to make it look good */
+  text-align: left; /* Center the text */
+  position: fixed; /* Fix position to the top of the page */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+}
+
+header h1 {
+  display: flex;
+  justify-content: center; /* Aligns flex items to the start of the container (left) */
+  align-items: center; /* Centers the item vertically in the header */
+  color: yellow; /* Keeps the text color as yellow */
+}
+
+#table {
+  padding-top: 150px;
+  margin: 10px;
+}
+
+#users {
+  width: 100%; /* Full width of the container */
+  border-collapse: collapse; /* Collapse borders */
+  margin: 20px 0; /* Add some space around the table */
+  background-color: white; /* White background for the table */
+}
+
+#users thead {
+  background-color: #ddd; /* Light gray background for the header */
+}
+
+#users thead th {
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Light gray border for separation */
+}
+
+#users tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #eee; /* Very light gray border for each row */
+  text-align: center;
+}
+#users tbody a {
+  color: inherit;
+  text-decoration: none;
+}
+#users tbody a:hover {
+  color: rgb(177, 177, 177);
+}
+
+#users tr:hover {
+  background-color: #ddd;
+}
+
+table#users tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra-striping for rows */
+}
+
+table#users tbody tr:hover {
+  background-color: #f1f1f1; /* Slightly darker background on hover */
+}
+
+.option-icon {
+  margin: 8px;
+  color: rgb(175, 175, 175); /* Example color - adjust as needed */
+}
+
+.option-icon:hover {
+  color: rgb(48, 48, 48); /* Example hover color - adjust as needed */
+}
+
+.fas {
+  cursor: pointer; /* Change cursor on hover over the icon */
+}
+
+/* CSS FOR INDEX.HTML */
+
+/* styles.css */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.button-container,
+.input-group form {
+  margin: 0 30px; /* Add spacing around the buttons and input group */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group input[type="text"] {
+  margin-bottom: 10px; /* Space between input and button */
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#show-users,
+#search-user,
+#add-user {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 5%;
+}
+
+#show-users:hover,
+#search-user:hover,
+#add-user:hover {
+  background-color: #555;
+}
+
+/* Additional styles for centering and responsive design */
+
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .button-container,
+  .input-group {
+    width: 100%;
+    margin: 10px 0; /* Adjust spacing for smaller screens */
+  }
+}
+
+/*          EDIT_USER.HTML  &  register.html      */
+
+.container-register,
+.container-profile {
+  background-color: white;
+  border: solid black;
+  border-radius: 10px;
+  margin: 100px 30% auto 30%;
+  padding: 10px;
+  font-size: larger;
+  display: block;
+  box-shadow: 3px 3px 15px black;
+}
+
+.container-register h3 {
+  display: flex;
+  align: center;
+  margin: 5px;
+  padding-bottom: 20px;
+}
+
+.container-register label {
+  margin-left: 3%;
+}
+
+.container-register input,
+.container-register select {
+  width: 90%;
+  margin: 10px 0 20px 3%;
+  border: 3px solid #ccc; /* Adds a border with a light grey color */
+  border-radius: 4px; /* Slightly rounds the corners of the input fields */
+  font-size: 16px; /* Sets the font size */
+  line-height: 1.5; /* Adjusts the line height for better readability */
+  color: #333; /* Sets the text color to a dark grey for better readability */
+  background-color: #fff; /* Sets a white background for the input fields */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Adds an inner shadow for depth */
+  transition: border-color 0.3s; /* Smooth transition for border color on focus */
+}
+
+.container-register input:focus,
+.container-register select:focus {
+  border-color: #4a90e2; /* Changes the border color to a blue when the input is focused */
+  outline: none; /* Removes the default focus outline */
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 0 8px rgba(74, 144, 226, 0.5); /* Adds a glow effect on focus */
+}
+
+.container-register input[type="submit"] {
+  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+  background-color: #535353; /* Gives the submit button a green background */
+  color: white; /* Ensures the text on the submit button is white */
+  border: none; /* Removes the border from the submit button */
+  font-weight: bold; /* Makes the submit button text bold */
+  font-size: larger;
+}
+
+/* Add a hover effect for buttons */
+.container-register input[type="submit"]:hover {
+  background-color: #727472; /* Darkens the button background slightly on hover */
+}
+
+/* USER PROFILE*/
+
+.container-profile p {
+  margin: 10px;
+  padding: 2%;
+}
+
+.container-profile a,
+.container-profile button {
+  margin: 10px 19px 10px 19px;
+  padding: 1%;
+  border: solid black;
+  border-radius: 5px;
+  font-size: larger;
+  max-width: 100px;
+  display: inline;
+  align-items: stretch;
+  align-content: space-between;
+  text-decoration: none;
+  color: black;
+}
+
+.container-profile a {
+  background-color: rgb(177, 177, 177);
+}
+
+.container-profile button {
+  background-color: #f94848;
+}
+
+.user-photo {
+  top: 30%;
+  right: 5%;
+  width: 150px; /* Adjust the size as needed */
+  height: 160px; /* Adjust the size as needed */
+  border-radius: 10%; /* Optional: for a circular image */
+  margin-right: 0;
+}
+@media (min-width: 1200px) {
+  .user-photo {
+    position: fixed;
+    top: 20%;
+    right: 30%;
+    margin: 5%;
+  }
+}

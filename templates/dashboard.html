@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="table">
+<table id="users">
+    <thead>
+        <tr>
+            <th>Numero de usuario</th>
+            <th>Nombre</th>
+            <th>Membresia</th>
+            <th>Fecha de Inicio</th>
+            <th>Vencimiento</th>
+            <th>Membresia Activa</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Loop through users and display their details -->
+        {% for user in users %}
+        <tr>
+            
+            <td>{{ user.user_id }}</td>
+            <td><a href="{{ url_for('profile', user_id=user.user_id) }}">{{ user.name }}</a></td>
+            <td>{{ user.membership }}</td>
+            <td>{{ user.start_date.strftime('%d-%m-%Y')  }}</td>
+            <td>{{ user.end_date.strftime('%d-%m-%Y')  }}</td>
+            {% if (user.end_date -date).days <= 0 %} 
+            <td style="background-color: #FF4545 ">Vencida</td>
+            {% elif (user.end_date -date).days == 1 %}
+            <td style="background-color: #F7FF45  ">Queda 1 dia</td>
+            {% else %}
+            <td style="background-color: #67F959 ">Quedan {{ (user.end_date -date).days }} dias</td>
+            {% endif %}
+
+                <!-- Edit Icon -->
+            <td>
+            <a href="{{ url_for('edit', user_id=user.user_id) }}" class="option-icon">
+                <i class="fas fa-edit">Editar</i>
+            </a>
+            <!-- Delete Icon -->
+            <a href="#" class="option-icon delete-btn" data-url="{{ url_for('delete', user_id=user.user_id) }}">
+                <i class="fas fa-trash-alt">Eliminar</i>
+            </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
