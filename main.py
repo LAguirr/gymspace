@@ -9,7 +9,7 @@ import base64
 app = Flask(__name__)
 
 # Set up the MongoDB client, replace <password> with your actual password.
-client = MongoClient('')
+client = MongoClient('mongodb+srv://Megalino111:Megalino111@cluster0.jrece.mongodb.net/')
 # Select the database
 db = client['gym']
 # Select the collection
@@ -20,7 +20,8 @@ date = datetime.now()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+
+    return render_template('index.html',date=date)
 
 
 @app.route('/dashboard')
