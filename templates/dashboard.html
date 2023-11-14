@@ -24,9 +24,9 @@
             <td>{{ user.membership }}</td>
             <td>{{ user.start_date.strftime('%d-%m-%Y')  }}</td>
             <td>{{ user.end_date.strftime('%d-%m-%Y')  }}</td>
-            {% if (user.end_date -date).days <= 0 %} 
+            {% if (user.end_date -date).days < 0 %} 
             <td style="background-color: #FF4545 ">Vencida</td>
-            {% elif (user.end_date -date).days == 1 %}
+            {% elif (user.end_date -date).days <= 1 %}
             <td style="background-color: #F7FF45  ">Queda 1 dia</td>
             {% else %}
             <td style="background-color: #67F959 ">Quedan {{ (user.end_date -date).days }} dias</td>
