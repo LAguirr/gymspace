@@ -9,7 +9,7 @@ import base64
 app = Flask(__name__)
 
 # Set up the MongoDB client, replace <password> with your actual password.
-client = MongoClient('mongodb+srv://Megalino111:Megalino111@cluster0.jrece.mongodb.net/')
+client = MongoClient('')
 # Select the database
 db = client['gym']
 # Select the collection
