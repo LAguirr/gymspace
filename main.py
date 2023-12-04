@@ -21,7 +21,7 @@ date = datetime.now()
 @app.route('/')
 def index():
 
-    return render_template('index.html',date=date)
+    return render_template('index.html', date=date)
 
 
 @app.route('/dashboard')

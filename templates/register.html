@@ -26,14 +26,42 @@
     <label for="end_date">Fecha de vencimiento:</label>
     <input type="date" id="end_date" name="end_date" value="" required>
     <br>
+    <button id="start-camera" onclick="openCamera()">Abrir Camara</button>
+    <video id="video" width="320" height="240" autoplay style="display: none;"></video>
+    <button id="click-photo" style="display: none;">Tomar Foto</button>
     <input type="file" name="photo" accept="image/*" id="photo-input" onchange="previewImage()">
     <img id="photo-preview" src="#" alt="Photo preview" style="display: none;">
+    
     <br>
     <input type="submit" value="Ingresar">
 </form>
 
 <script>
     
+let start_camera = document.querySelector("#start-camera");
+let video = document.querySelector("#video");
+let click_photo = document.querySelector("#click-photo");
+let canvas = document.querySelector("img");
+
+
+
+start_camera.addEventListener('click', async function() {
+    video.style.display = 'block'; 
+click_photo.style.display = 'block'; 
+   	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	video.srcObject = stream;
+});
+
+click_button.addEventListener('click', function() {
+    canvas.style.display = 'block';
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	let image_data_url = canvas.toDataURL('image/jpeg');
+
+   	// data url of the image
+   	console.log(image_data_url);
+});
+
+
 function addTimeToDate(startDate, daysToAdd, monthsToAdd, yearsToAdd) {
     var date = new Date(startDate.valueOf());
     date.setDate(date.getDate() + daysToAdd);
