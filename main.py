@@ -47,17 +47,15 @@ def register():
         if not user_id or not membership or not start_date:
             return jsonify({'error': 'user_id, start_date, and end_date must not be null'}), 400
 
-        photo = request.files['photo']
-        if photo.filename != '':
-            # Convert the photo to a binary format (e.g., Base64)
-            photo_data = base64.b64encode(photo.read())
+        photo = request.form['captured_image']
+        if photo != '':
             user = {
                 'user_id': user_id,
                 'name': name,
                 'membership': membership,
                 'start_date': start_date,
                 'end_date': end_date,
-                'photo': photo_data.decode('utf-8')
+                'photo': photo
             }
 
         user = {

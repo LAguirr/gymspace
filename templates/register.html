@@ -26,40 +26,19 @@
     <label for="end_date">Fecha de vencimiento:</label>
     <input type="date" id="end_date" name="end_date" value="" required>
     <br>
-    <button id="start-camera" onclick="openCamera()">Abrir Camara</button>
-    <video id="video" width="320" height="240" autoplay style="display: none;"></video>
-    <button id="click-photo" style="display: none;">Tomar Foto</button>
-    <input type="file" name="photo" accept="image/*" id="photo-input" onchange="previewImage()">
-    <img id="photo-preview" src="#" alt="Photo preview" style="display: none;">
+    <!-- Webcam video stream -->
+    <video id="video" width="280" height="340" autoplay></video>
+    <button id="capture">Tomar Foto</button>
+    <canvas id="canvas" width="280" height="340" style="display:none;"></canvas>
+
     
+    <input type="photo" name="captured_image" id="captured_image">
     <br>
     <input type="submit" value="Ingresar">
 </form>
 
 <script>
     
-let start_camera = document.querySelector("#start-camera");
-let video = document.querySelector("#video");
-let click_photo = document.querySelector("#click-photo");
-let canvas = document.querySelector("img");
-
-
-
-start_camera.addEventListener('click', async function() {
-    video.style.display = 'block'; 
-click_photo.style.display = 'block'; 
-   	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-	video.srcObject = stream;
-});
-
-click_button.addEventListener('click', function() {
-    canvas.style.display = 'block';
-   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-   	let image_data_url = canvas.toDataURL('image/jpeg');
-
-   	// data url of the image
-   	console.log(image_data_url);
-});
 
 
 function addTimeToDate(startDate, daysToAdd, monthsToAdd, yearsToAdd) {
@@ -100,25 +79,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 });
-function previewImage() {
-    var preview = document.getElementById('photo-preview');
-    var file = document.getElementById('photo-input').files[0];
-    var reader = new FileReader();
 
-    reader.onloadend = function() {
-        preview.src = reader.result;
-        preview.style.display = 'block';
-        preview.style.width = '150px';
-        preview.style.height= '200px';
-    }
-
-
-    if (file) {
-        reader.readAsDataURL(file); // Read the image file as a data URL.
-    } else {
-        preview.src = "";
-        preview.style.display = 'none';
-    }
+// Get access to the camera
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        var video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+    });
 }
+
+// Elements for taking the snapshot
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+
+// Trigger photo take
+document.getElementById("capture").addEventListener("click", function() {
+    event.preventDefault();
+    canvas.style.display = 'block';
+    context.drawImage(video, 0, 0, 280, 340);
+    var imageDataUrl = canvas.toDataURL('image/jpeg');
+    document.getElementById('captured_image').value = imageDataUrl;
+    video.style.display = 'none';
+});
+
 </script>
 {% endblock %}
