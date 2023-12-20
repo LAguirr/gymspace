@@ -27,9 +27,9 @@
     <input type="date" id="end_date" name="end_date" value="" required>
     <br>
     <!-- Webcam video stream -->
-    <video id="video" width="280" height="340" autoplay></video>
+    <video id="video" width="300" height="360" autoplay></video>
     <button id="capture">Tomar Foto</button>
-    <canvas id="canvas" width="280" height="340" style="display:none;"></canvas>
+    <canvas id="canvas" width="300" height="360" style="display:none;"></canvas>
 
     
     <input type="photo" name="captured_image" id="captured_image">
@@ -99,10 +99,10 @@ var video = document.getElementById('video');
 document.getElementById("capture").addEventListener("click", function() {
     event.preventDefault();
     canvas.style.display = 'block';
-    context.drawImage(video, 0, 0, 280, 340);
+    context.drawImage(video, 50, 0, 320, 240);
     var imageDataUrl = canvas.toDataURL('image/jpeg');
     document.getElementById('captured_image').value = imageDataUrl;
-    video.style.display = 'none';
+
 });
 
 </script>
