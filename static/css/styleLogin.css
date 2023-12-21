@@ -1,0 +1,60 @@
+/* styleLogin.css */
+body {
+  font-family: Arial, sans-serif; /* Set a default font */
+  background: linear-gradient(
+    to top left,
+    #808080,
+    #ffffff
+  ); /* Diagonal gradient from gray to white */
+  color: yellow; /* Yellow text color */
+  display: flex;
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  height: 100vh; /* Full viewport height */
+  margin: 0; /* Reset default margin */
+}
+
+form {
+  background-color: #333; /* Darker background for the form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); /* Add a shadow for better visibility */
+}
+
+label {
+  display: block; /* Put each label on a new line */
+  margin-bottom: 5px; /* Space between label and input */
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%; /* Make inputs fill the form width */
+  padding: 10px;
+  margin-bottom: 10px; /* Space between inputs */
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Light gray border */
+  background-color: #222; /* Dark background for inputs */
+  color: yellow; /* Yellow text in inputs */
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #808080; /* Green background for submit button */
+  color: white; /* White text for submit button */
+  cursor: pointer;
+  font-size: large;
+}
+
+input[type="submit"]:hover {
+  background-color: #ccc; /* Slightly darker green on hover */
+}
+
+/* Style adjustments for small screens */
+@media (max-width: 600px) {
+  form {
+    width: 90%; /* Narrower form on small screens */
+  }
+}

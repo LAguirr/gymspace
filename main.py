@@ -19,9 +19,20 @@ date = datetime.now() - timedelta(hours=6)
 print(date)
 
 
-@app.route('/')
-def index():
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
+        if (username == 'SpaceGym') and (password == '12345'):
+            return redirect(url_for('index'))
+
+    return render_template('login.html')
+
+
+@app.route('/index')
+def index():
     return render_template('index.html', date=date)
 
 
