@@ -232,8 +232,30 @@ table#users tbody tr:hover {
 }
 
 /* Add a hover effect for buttons */
-.container-register input[type="submit"]:hover {
+.container-register input[type="submit"]:hover,
+.container-register button:hover {
   background-color: #727472; /* Darkens the button background slightly on hover */
+}
+
+#video {
+  display: flex;
+  transform: scaleX(-1); /* Flips the video horizontally */
+  -webkit-transform: scaleX(-1); /* For Safari and older browsers */
+}
+
+#capture {
+  margin-left: 40%;
+  margin-bottom: 10%;
+  position: relative;
+  padding: 2%;
+  font-size: medium;
+  border-radius: 5px;
+  border: solid black;
+}
+
+.container-register #canvas {
+  position: static;
+  margin-left: 28%;
 }
 
 /* USER PROFILE*/
@@ -248,8 +270,8 @@ table#users tbody tr:hover {
   margin: 10px 19px 10px 19px;
   padding: 1%;
   border: solid black;
-  border-radius: 5px;
-  font-size: larger;
+  border-radius: 3px;
+  font-size: large;
   max-width: 100px;
   display: inline;
   align-items: stretch;
@@ -266,16 +288,18 @@ table#users tbody tr:hover {
   background-color: #f94848;
 }
 
-.user-photo {
+.user-photo,
+#canvas {
   top: 30%;
   right: 5%;
-  width: 150px; /* Adjust the size as needed */
-  height: 160px; /* Adjust the size as needed */
+  width: 250px; /* Adjust the size as needed */
+  height: 250px; /* Adjust the size as needed */
   border-radius: 10%; /* Optional: for a circular image */
   margin-right: 0;
 }
 @media (min-width: 1200px) {
-  .user-photo {
+  .user-photo,
+  #canvas {
     position: fixed;
     top: 20%;
     right: 30%;
