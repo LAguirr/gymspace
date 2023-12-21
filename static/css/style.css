@@ -290,19 +290,21 @@ table#users tbody tr:hover {
 
 .user-photo,
 #canvas {
-  top: 30%;
-  right: 5%;
-  width: 250px; /* Adjust the size as needed */
-  height: 250px; /* Adjust the size as needed */
+  position: static;
+  top: 10%;
+  margin: 5%;
+  width: 120px; /* Adjust the sze as needed */
+  height: 120px; /* Adjust the size as needed */
   border-radius: 10%; /* Optional: for a circular image */
-  margin-right: 0;
 }
 @media (min-width: 1200px) {
   .user-photo,
   #canvas {
     position: fixed;
-    top: 20%;
-    right: 30%;
+    top: 10%;
+    right: 28%;
     margin: 5%;
+    width: 220px; /* Adjust the sze as needed */
+    height: 220px;
   }
 }

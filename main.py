@@ -15,7 +15,8 @@ db = client['gym']
 # Select the collection
 collection = db['users']
 
-date = datetime.now()
+date = datetime.now() - timedelta(hours=6)
+print(date)
 
 
 @app.route('/')
