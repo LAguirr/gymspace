@@ -48,6 +48,7 @@ def register():
             return jsonify({'error': 'user_id, start_date, and end_date must not be null'}), 400
 
         photo = request.form['captured_image']
+        print(photo)
         if photo != '':
             user = {
                 'user_id': user_id,
@@ -57,14 +58,14 @@ def register():
                 'end_date': end_date,
                 'photo': photo
             }
-
-        user = {
-            'user_id': user_id,
-            'name': name,
-            'membership': membership,
-            'start_date': start_date,
-            'end_date': end_date
-        }
+        else:
+            user = {
+                'user_id': user_id,
+                'name': name,
+                'membership': membership,
+                'start_date': start_date,
+                'end_date': end_date
+            }
 
         collection.insert_one(user)
 

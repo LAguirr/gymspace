@@ -18,7 +18,7 @@
                 {% endif %}</p>
     <!-- Add more user details as needed -->
     {% if user.photo %}
-        <img src="data:image/jpeg;base64,{{ user.photo }}" alt="User Photo" class="user-photo">
+        <img src="{{ user.photo }}" alt="User Photo" class="user-photo">
     {% endif %}
     <!-- Edit Button -->
     <a href="{{ url_for('edit', user_id=user.user_id) }}" >Editar</a>

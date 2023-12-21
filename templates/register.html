@@ -115,7 +115,7 @@ document.getElementById("capture").addEventListener("click", function() {
 
     // Draw the image - only the centered square part
     context.drawImage(video, startX, startY, size, size, 0, 0, size, size);
-    var imageDataUrl = canvas.toDataURL('image/png');
+    var imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
     document.getElementById('captured_image').value = imageDataUrl;
 
 });
