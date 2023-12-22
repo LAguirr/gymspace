@@ -16,7 +16,33 @@ db = client['gym']
 collection = db['users']
 
 date = datetime.now() - timedelta(hours=6)
-print(date)
+
+
+def initialize_user_id_counter():
+    counters_collection = db['counters']
+    if counters_collection.find_one({'_id': 'user_id'}) is None:
+        counters_collection.insert_one({'_id': 'user_id', 'seq': 0})
+
+
+def get_next_user_id():
+    initialize_user_id_counter()
+    counters_collection = db['counters']
+    # Find and update the counter document, incrementing the user_id value
+    counter = counters_collection.find_one_and_update(
+        {'_id': 'user_id'},
+        {'$inc': {'seq': 1}},
+        upsert=True,
+        return_document=True
+    )
+
+    return counter['seq']
+
+
+def get_last_user_id():
+    counters_collection = db['counters']
+    counter = counters_collection.find_one({'_id': 'user_id'})
+
+    return counter['seq'] + 1
 
 
 @app.route('/')
@@ -46,9 +72,10 @@ def dashboard():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+
     # Get data from the form
     if request.method == 'POST':
-        user_id = request.form['user_id']
+        user_id = get_next_user_id()
         name = request.form['name']
         membership = request.form['membership']
         start_date = request.form.get(
@@ -85,9 +112,9 @@ def register():
         # Redirect to another page, for example, the dashboard or a confirmation page
         return redirect(url_for('dashboard'))
         # return jsonify({'status': 'success', 'message': 'User registered', '_id': str(result.inserted_id)}), 201
-
+    user_id = get_last_user_id()
     # If it's a GET request, render the registration form template
-    return render_template('register.html', date=date)
+    return render_template('register.html', date=date, user_id=user_id)
 
 
 @app.route('/delete/<user_id>', methods=['DELETE'])

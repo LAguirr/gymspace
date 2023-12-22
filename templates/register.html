@@ -7,7 +7,7 @@
 <form action="{{ url_for('register') }}" method="post" class='container-register' enctype="multipart/form-data" >
     <h3>Nuevo Usuario</h3>
     <label for="user_id">Numero de Usuario:</label>
-    <input type="text" id="user_id" name="user_id" required>
+    <input type="text" id="user_id" name="user_id" value="{{ user_id }}" required readonly>
     <br>
     <label for="name">Nombre Completo:</label>
     <input type="text" id="name" name="name" required>
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     membershipSelect.addEventListener('change', function() {
         var now = new Date();
+        now.setTime(now.getTime() - 6 * 60 * 60 * 1000);
         startDateInput.valueAsDate = now; // Set start date to now on change
 
     // Determine the new end date based on the membership type
