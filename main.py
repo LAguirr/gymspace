@@ -19,7 +19,8 @@ date = datetime.now() - timedelta(hours=6)
 print(date)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
