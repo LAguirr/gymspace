@@ -16,6 +16,7 @@ h1 {
   top: 1px;
   right: 10px;
 }
+
 .inicio {
   font-family: Arial, sans-serif;
   display: flex;
@@ -29,6 +30,24 @@ h1 {
 }
 
 .inicio:hover {
+  box-shadow: 20px gray;
+}
+
+.salir {
+  font-family: Arial, sans-serif;
+  background-color: black;
+  position: fixed;
+  top: 2%;
+  right: 0;
+  margin-right: 2%;
+
+  color: white;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: 800;
+}
+
+.salir:hover {
   box-shadow: 20px gray;
 }
 

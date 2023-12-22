@@ -15,6 +15,10 @@
                 <i class="fas fa-edit">Inicio</i>
             </a>
     <h1>X-GYM Reynosa</h1>
+
+    <a class="salir" href="{{ url_for('login') }}" class="option-icon">
+        <i class="fas fa-edit">Salir</i>
+    </a>
 </header>
 
 <main>
@@ -42,7 +46,7 @@
                     .then(data => {
                         console.log(data); // Handle the response data
                         // Optionally, remove the user row from the table or refresh the page
-                        // this.closest('tr').remove(); // Uncomment to remove the row
+                        this.closest('tr').remove(); // Uncomment to remove the row
                         location.reload(); // Uncomment to refresh the page
                     })
                     .catch(error => console.error('Error:', error));
