@@ -9,7 +9,8 @@ import base64
 app = Flask(__name__)
 
 # Set up the MongoDB client, replace <password> with your actual password.
-client = MongoClient('')
+client = MongoClient(
+    'mongodb+srv://Megalino111:Megalino111@cluster0.jrece.mongodb.net/')
 # Select the database
 db = client['gym']
 # Select the collection
@@ -75,7 +76,7 @@ def register():
 
     # Get data from the form
     if request.method == 'POST':
-        user_id = get_next_user_id()
+        user_id = str(get_next_user_id())
         name = request.form['name']
         membership = request.form['membership']
         start_date = request.form.get(
@@ -88,7 +89,6 @@ def register():
             return jsonify({'error': 'user_id, start_date, and end_date must not be null'}), 400
 
         photo = request.form['captured_image']
-        print(photo)
         if photo != '':
             user = {
                 'user_id': user_id,
@@ -122,7 +122,7 @@ def delete(user_id):
     # Perform the deletion operation
     result = collection.delete_one({'user_id': user_id})
     if result.deleted_count:
-        return redirect(url_for('index'))
+        return jsonify({'status': 'success', 'message': 'User deleted'}), 201
     else:
         return jsonify({'status': 'failure', 'message': 'No user found with that ID'}), 404
 
@@ -131,6 +131,7 @@ def delete(user_id):
 def edit(user_id):
     if request.method == 'GET':
         # Retrieve the user document from MongoDB using the user_id
+
         user = collection.find_one({'user_id': user_id})
         if user:
             # Render the edit template, passing in the user information
@@ -140,7 +141,6 @@ def edit(user_id):
             return 'No user found with that ID', 404
 
     elif request.method == 'POST':
-        print(request.form)
         membership = request.form['membership']
         start_date = request.form.get(
             'start_date', type=lambda x: datetime.strptime(x, '%Y-%m-%d'))
@@ -193,7 +193,7 @@ def search_user():
 def profile(user_id):
 
     user = collection.find_one({'user_id': user_id})
-
+    print("USER: ----:" + str(user['name']))
     return render_template('user_profile.html', user=user, date=date)
 
 
