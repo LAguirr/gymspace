@@ -1,4 +1,8 @@
 /* styleLogin.css */
+
+* {
+  font-size: x-large;
+}
 body {
   font-family: Arial, sans-serif; /* Set a default font */
   background: linear-gradient(
