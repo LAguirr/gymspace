@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient, ASCENDING
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta
+from bson import json_util
+import json
 import re
 import base64
 
@@ -194,6 +196,16 @@ def profile(user_id):
     user = collection.find_one({'user_id': user_id})
     print("USER: ----:" + str(user['name']))
     return render_template('user_profile.html', user=user, date=date)
+
+
+@app.route('/find_user/<user_id>', methods=['GET'])
+def find_user(user_id):
+    user = collection.find_one({'user_id': user_id})
+    if user:
+        # Convert the MongoDB document to JSON
+        return json.dumps(user, default=json_util.default), 200
+    else:
+        return jsonify({'error': 'User not found'}), 404
 
 
 if __name__ == "__main__":
