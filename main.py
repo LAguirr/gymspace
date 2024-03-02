@@ -11,7 +11,8 @@ import base64
 app = Flask(__name__)
 
 # Set up the MongoDB client, replace <password> with your actual password.
-client = MongoClient('')
+client = MongoClient(
+    '')
 # Select the database
 db = client['gym']
 # Select the collection
@@ -203,7 +204,13 @@ def find_user(user_id):
     user = collection.find_one({'user_id': user_id})
     if user:
         # Convert the MongoDB document to JSON
-        return json.dumps(user, default=json_util.default), 200
+        print(user['name'])
+        end_date = user['end_date'].strftime('%d-%m-%Y')
+
+        return jsonify({
+            'name': user['name'],
+            'end_date': end_date
+        }), 200
     else:
         return jsonify({'error': 'User not found'}), 404
 

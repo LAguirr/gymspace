@@ -1,40 +1,49 @@
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+import tkinter as tk
+from tkinter import ttk
 import requests
+from datetime import datetime, timedelta
 
 
-class UserInfoApp(App):
-    def build(self):
-        self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
+def fetch_user_data():
+    user_id = user_id_entry.get()
+    url = f"https://ctsgf6-5000.csb.app/find_user/{user_id}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        user_info = response.json()
+        name = user_info.get('name', 'No name available')
 
-        # User ID Entry
-        self.user_id_input = TextInput(text='', hint_text='Enter User ID')
-        self.layout.add_widget(self.user_id_input)
+        # Parse and format the end_date
+        end_date_str = user_info.get('end_date', '')
 
-        # Button to Get User Info
-        self.get_info_button = Button(text='Get User Info')
-        self.get_info_button.bind(on_press=self.get_user_info)
-        self.layout.add_widget(self.get_info_button)
+        # if end_date_str:
+        # end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+        # else:
+        # end_date = 'No end date available'
 
-        # Label to Show User Info
-        self.info_label = Label(text='')
-        self.layout.add_widget(self.info_label)
-
-        return self.layout
-
-    def get_user_info(self, instance):
-        user_id = self.user_id_input.text
-        url = f"http://localhost:5000/find_user/{user_id}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            user_info = response.json()
-            self.info_label.text = str(user_info)
-        else:
-            self.info_label.text = "User not found or error occurred."
+        display_text = f"Name: {name} \n Fecha Vencimiento: {end_date_str}"
+        info_label.config(text=display_text)
+    else:
+        info_label.config(text="User not found or error occurred.")
 
 
-if __name__ == '__main__':
-    UserInfoApp().run()
+# Tkinter setup
+app = tk.Tk()
+app.title("User Information")
+app.configure(bg='black')
+
+# User ID Entry
+tk.Label(app, text="Enter User ID:", bg='black', fg='white').pack()
+user_id_entry = tk.Entry(app)
+user_id_entry.pack()
+
+# Button to Get User Info
+get_info_button = ttk.Button(app,
+                             text="Get User Info",
+                             command=fetch_user_data)
+get_info_button.pack()
+
+# Label to Show User Info
+info_label = tk.Label(app, text="", bg='black', fg='white', justify=tk.CENTER)
+info_label.pack()
+
+app.mainloop()
