@@ -7,7 +7,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <title>SpaceGym</title>
+    <style>
+        /* CSS animation for progress bar */
+        @keyframes progress-animation {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
 
+        #charging-screen {
+            display: none;
+            text-align: center;
+            padding: 180px;
+        }
+
+        #progress-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-bar-fill {
+            height: 100%;
+            background-color: #4caf50;
+            animation: progress-animation 2s linear infinite;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -22,16 +48,27 @@
     </a>
 </header>
 
+
+
 <main>
-    {% block content %}{% endblock %}
+    <div id="charging-screen">
+        <!-- Charging screen content -->
+        <div id="progress-bar">
+            <div id="progress-bar-fill"></div>
+        </div>
+        <p>Cargando...</p>
+    </div>
+
+    {% block content %}    {% endblock %}
+
+    
 </main>
 
-<footer>
-    <!-- Footer components -->
-</footer>
+
 
 </body>
 <script>
+
     document.addEventListener('DOMContentLoaded', function() {
         // Attach a click event listener to all delete buttons
         document.querySelectorAll('.delete-btn').forEach(function(button) {
@@ -53,8 +90,29 @@
                     .catch(error => console.error('Error:', error));
                 }
             });
+
+            //Function to show charging screen
+            function showChargingScreen() {
+                document.getElementById('charging-screen').style.display = 'block';
+            }
+
+            // Function to hide charging screen
+            function hideChargingScreen() {
+                document.getElementById('charging-screen').style.display = 'none';
+                console.log("Cargando...\nCargando...\nCargando...");
+            } 
+
+            // Show charging screen initially
+            showChargingScreen();
+
+            // Hide charging screen once page is loaded
+            window.onload = function() {
+                hideChargingScreen();
+            };
+
         });
     });
+   
     </script>
     
 </html>

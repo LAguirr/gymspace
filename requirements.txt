@@ -3,5 +3,5 @@ flask_login
 flask_pymongo
 flask_sqlalchemy
 kivy
-numpy = "^1.26.3"
+numpy == 1.26.3
 tk
