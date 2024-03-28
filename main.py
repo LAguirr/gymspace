@@ -199,20 +199,23 @@ def profile(user_id):
     return render_template('user_profile.html', user=user, date=date)
 
 
-@app.route('/find_user/<user_id>', methods=['GET'])
-def find_user(user_id):
-    user = collection.find_one({'user_id': user_id})
-    if user:
-        # Convert the MongoDB document to JSON
-        print(user['name'])
-        end_date = user['end_date'].strftime('%d-%m-%Y')
+@app.route('/find_user', methods=['GET', 'POST'], strict_slashes=False)
+def find_user():
+    if request.method == 'GET':
+        return render_template('userInput.html')
 
-        return jsonify({
-            'name': user['name'],
-            'end_date': end_date
-        }), 200
-    else:
-        return jsonify({'error': 'User not found'}), 404
+    if request.method == 'POST':
+        user_id = request.form.get('user_id')
+        print("User ID: " + str(request.args))
+        user = collection.find_one({'user_id': user_id})
+
+        if user is not None:
+            # Assuming 'name', 'start_date', 'end_date', and 'photo' are fields in your user document
+
+            print("User: " + str(user.keys()))
+            return render_template('userInput.html', user=user, date=date)
+        else:
+            return jsonify({'error': 'User not found'}), 404
 
 
 if __name__ == "__main__":

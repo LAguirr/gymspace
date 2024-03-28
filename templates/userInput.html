@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>SpaceGym</title>
+    <style>
+        /* CSS animation for progress bar */
+        @keyframes progress-animation {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        #charging-screen {
+            display: none;
+            text-align: center;
+            padding: 180px;
+        }
+
+        #progress-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-bar-fill {
+            height: 100%;
+            background-color: #4caf50;
+            animation: progress-animation 2s linear infinite;
+        }
+
+        #user-form{
+            margin: 6% 6% 2% 6%; 
+            color: white; 
+            appearance: none;
+            text-align: center; 
+        }
+
+        #user-form p{
+            padding: 2%; 
+        }
+
+        #table{
+            margin: 0px; 
+            padding: 0px; 
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+   
+    <h1>X-GYM Reynosa</h1>
+
+</header>
+
+
+<main>
+    <div id="charging-screen">
+        <!-- Charging screen content -->
+        <div id="progress-bar">
+            <div id="progress-bar-fill"></div>
+        </div>
+        <p>Cargando...</p>
+    </div>
+
+    <form id="user-form" action="{{ url_for('find_user') }}" method="post" >
+    <label>Numero de usuario: </label>
+    <p><input type="text" name="user_id" id="user_id" placeholder="Ingresa número de usuario" required /></p>
+    <button type='submit' id="find-user">Ingresar</button>
+    </form>
+
+    <div id="table">
+        <table id="users">
+            <thead>
+                <tr>
+                    <th>Numero de usuario</th>
+                    <th>Nombre</th>
+                    <th>Membresia</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Vencimiento</th>
+                    <th>Membresia Activa</th>
+                </tr>
+            </thead>
+            <tbody id='table-userInput'>
+                <!-- Loop through users and display their details -->
+                <tr>
+                    {% if user %}
+                    <td>{{ user.user_id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.membership }}</td>
+                    <td>{{ user.start_date.strftime('%d-%m-%Y')  }}</td>
+                    <td>{{ user.end_date.strftime('%d-%m-%Y')  }}</td>
+                    {% if (user.end_date -date).days < 0 %} 
+                    <td style="background-color: #FF4545 ">Vencida</td>
+                    {% elif (user.end_date -date).days <= 1 %}
+                    <td style="background-color: #F7FF45  ">Queda 1 dia</td>
+                    {% else %}
+                    <td style="background-color: #67F959 ">Quedan {{ (user.end_date -date).days }} dias</td>
+                    {% endif %}
+                {% endif %}
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    
+</main>
+
+
+</body>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+            //Function to show charging screen
+            function showChargingScreen() {
+                document.getElementById('charging-screen').style.display = 'block';
+            }
+
+            // Function to hide charging screen
+            function hideChargingScreen() {
+                document.getElementById('charging-screen').style.display = 'none';
+                console.log("Cargando...\nCargando...\nCargando...");
+            } 
+
+            // Show charging screen initially
+            showChargingScreen();
+
+            // Hide charging screen once page is loaded
+            window.onload = function() {
+                hideChargingScreen();
+            };
+
+        }); //ENd of document loaded
+   
+    </script>
+    
+</html>
