@@ -158,7 +158,8 @@ table#users tbody tr:hover {
 
 #show-users,
 #search-user,
-#add-user {
+#add-user,
+#daily-user {
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
@@ -172,8 +173,15 @@ table#users tbody tr:hover {
 
 #show-users:hover,
 #search-user:hover,
-#add-user:hover {
+#add-user:hover,
+#daily-user:hover {
   background-color: #555;
+}
+
+#daily-user {
+  position: absolute;
+  bottom: 0px;
+  right: 35%;
 }
 
 /* Additional styles for centering and responsive design */

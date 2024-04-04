@@ -199,6 +199,9 @@ def profile(user_id):
     return render_template('user_profile.html', user=user, date=date)
 
 
+dailyUsers = []
+
+
 @app.route('/find_user', methods=['GET', 'POST'], strict_slashes=False)
 def find_user():
     if request.method == 'GET':
@@ -206,16 +209,31 @@ def find_user():
 
     if request.method == 'POST':
         user_id = request.form.get('user_id')
-        print("User ID: " + str(request.args))
+
         user = collection.find_one({'user_id': user_id})
 
         if user is not None:
             # Assuming 'name', 'start_date', 'end_date', and 'photo' are fields in your user document
-
-            print("User: " + str(user.keys()))
+            print("Numero de usuario: " + user_id)
+            print("Usuario: " + user['name'])
+            print("Fecha de inicio: " + str(user['start_date']).split(" ")[0])
+            print("Vencimiento: " + str(user['end_date']).split(" ")[0])
+            dailyUsers.append({
+                "numero": user_id,
+                "nombre": user['name'],
+                "membresia": user["membership"],
+                "inicio": user['start_date'],
+                "final": user['end_date']
+            })
             return render_template('userInput.html', user=user, date=date)
         else:
             return jsonify({'error': 'User not found'}), 404
+
+
+@app.route('/daily', methods=['GET', 'POST'], strict_slashes=False)
+def daily():
+    if request.method == 'GET':
+        return render_template('daily.html', dailyUsers=dailyUsers, date=date)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="table">
+<table id="users">
+    <thead>
+        <tr>
+            <th>Numero de usuario</th>
+            <th>Nombre</th>
+            <th>Membresia</th>
+            <th>Fecha de Inicio</th>
+            <th>Vencimiento</th>
+            <th>Membresia Activa</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if dailyUsers %}
+            <!-- Loop through users and display their details -->
+            {% for user in dailyUsers %}
+            <tr>
+                
+                <td>{{ user.numero }}</td>
+                <td><a href="{{ url_for('profile', user_id=user.numero) }}">{{ user.nombre }}</a></td>
+                <td>{{ user.membresia }}</td>
+                <td>{{ user.inicio.strftime('%d-%m-%Y')  }}</td>
+                <td>{{ user.final.strftime('%d-%m-%Y')  }}</td>
+                {% if (user.final -date).days < 0 %} 
+                <td style="background-color: #FF4545 ">Vencida, pase a pagar</td>
+                {% elif (user.final -date).days <= 1 %}
+                <td style="background-color: #F7FF45  ">Queda 1 dia, mañana toca pagar</td>
+                {% else %}
+                <td style="background-color: #67F959 ">Quedan {{ (user.final -date).days }} dias</td>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
